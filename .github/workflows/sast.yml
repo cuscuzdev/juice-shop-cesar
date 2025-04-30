@@ -1,0 +1,15 @@
+name: SAST
+
+on: [push, pull_request]
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run SAST (Semgrep) with OWASP Top 10 rules
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/owasp-top-ten"
