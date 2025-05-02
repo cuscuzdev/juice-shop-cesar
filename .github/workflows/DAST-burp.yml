@@ -1,0 +1,44 @@
+name: ZAP DAST Scan
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  zap-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixar o código
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Instalar o OWASP ZAP
+      - name: Install OWASP ZAP
+        run: |
+          sudo apt update
+          sudo apt install -y default-jre
+          wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz
+          tar -xvzf ZAP_2.11.1_Linux.tar.gz
+          sudo mv ZAP_2.11.1 /opt/zaproxy
+          sudo ln -s /opt/zaproxy/zap.sh /usr/local/bin/zap
+
+      # 3. Rodar o OWASP Juice Shop
+      - name: Start Juice Shop
+        run: |
+          npm install -g serve
+          git clone https://github.com/juice-shop/juice-shop.git
+          cd juice-shop
+          serve -s . -l 3000 &  # Rodar Juice Shop na porta 3000
+          sleep 30  # Aguarda a aplicação subir
+
+      # 4. Rodar análise com OWASP ZAP
+      - name: Run OWASP ZAP Baseline Scan
+        run: |
+          zap-baseline.py -t http://localhost:3000 -g gen.json -r zap_report.html
+
+      # 5. Parar o Juice Shop após o scan
+      - name: Stop Juice Shop
+        run: kill $(lsof -t -i:3000) # Finaliza o processo do Juice Shop
