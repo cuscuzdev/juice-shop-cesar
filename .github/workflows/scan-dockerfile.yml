@@ -1,4 +1,6 @@
 name: Hadolint Dockerfile Linter
+permissions:
+  contents: read
 
 on:
   push:
