@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '31 6 * * 2'
+
+permissions:
+  contents: read
+
+name: Scan analyze workflow
+jobs:
+  build-and-scan:
+    permissions:
+        contents: read 
+        security-events: write 
+        actions: read 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Contrast Scan Action
+      uses: Contrast-Security-OSS/contrastscan-action@7352a45d9678ec8a434cf061b07ffb51c1e351a1
+      with:
+        artifact: mypath/target/myartifact.jar 
+        apiKey: ${{ secrets.CONTRAST_API_KEY }}
+        orgId: ${{ secrets.CONTRAST_ORGANIZATION_ID }}
+        authHeader: ${{ secrets.CONTRAST_AUTH_HEADER }}
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: results.sarif 
