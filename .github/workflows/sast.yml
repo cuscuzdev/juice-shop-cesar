@@ -2,8 +2,8 @@ name: SAST
 
 on: [pull_request]
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
 jobs:
   semgrep:
