@@ -1,0 +1,22 @@
+name: Hadolint Dockerfile Linter
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Hadolint
+        run: wget -qO- https://github.com/hadolint/hadolint/releases/download/v2.8.0/hadolint-Linux-x86_64 -O /usr/local/bin/hadolint && chmod +x /usr/local/bin/hadolint
+
+      - name: Run Hadolint on Dockerfile
+        run: hadolint Dockerfile
