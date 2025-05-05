@@ -1,0 +1,35 @@
+name: ci-cd
+
+on: [pull_request]
+
+jobs:
+  Secrets scan:
+  name: Git Secrets Scan
+
+  on: [pull_request]
+
+  jobs:
+    scan:
+      name: Scan for Secrets
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: Install git-secrets
+          run: |
+            git clone https://github.com/awslabs/git-secrets.git
+            cd git-secrets
+            sudo make install
+
+        - name: Set up git-secrets
+          run: |
+            git secrets --install
+            git secrets --register-aws
+            git secrets --add 'apikey\s*=\s*.+'
+            git secrets --add 'password\s*=\s*.+'
+
+        - name: Scan for secrets
+          run: |
+            git secrets --scan
