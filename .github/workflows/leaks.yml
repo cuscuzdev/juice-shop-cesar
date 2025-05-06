@@ -16,13 +16,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y wget jq
 
-      - name: Install gitleaks
+      - name: Download and install gitleaks
         run: |
-          VERSION=$(curl --silent "https://api.github.com/repos/gitleaks/gitleaks/releases/latest" | jq -r .tag_name)
-          wget https://github.com/gitleaks/gitleaks/releases/download/$VERSION/gitleaks-linux-amd64-$VERSION.tar.gz
-          tar -xvzf gitleaks-linux-amd64-$VERSION.tar.gz
+          wget https://github.com/gitleaks/gitleaks/releases/download/v8.25.1/gitleaks-linux-amd64-v8.25.1.tar.gz
+          tar -xvzf gitleaks-linux-amd64-v8.25.1.tar.gz
           sudo mv gitleaks /usr/local/bin/
 
       - name: Run gitleaks scan
         run: |
-          gitleaks detect --source=. --report=gitleaks-report.json
+          gitleaks detect --source=. --report=gitleaks-report.jso
