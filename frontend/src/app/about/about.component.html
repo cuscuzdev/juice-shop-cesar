@@ -74,6 +74,25 @@
           <button mat-raised-button color="accent"><i class="fas fa-palette fa-lg"></i> NFT</button>
         </a>
       </div>
+
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vulnerável a XSS</title>
+</head>
+    <form method="GET">
+        <label for="username">Write your name:</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="Send">
+    </form>
+
+    <script>
+        const username = new URLSearchParams(window.location.search).get('username');
+        if (username) {
+            document.body.innerHTML += `<p>Olá, ${username}!</p>`;
+        }
+    </script>
     </section>
   </div>
 </mat-card>

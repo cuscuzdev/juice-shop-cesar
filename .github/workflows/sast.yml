@@ -15,4 +15,4 @@ jobs:
       - name: Run SAST (Semgrep) with OWASP Top 10 rules
         uses: returntocorp/semgrep-action@v1
         with:
-          config: "p/owasp-top-ten"
+          config: "p/owasp-top-ten, javascript/owasp, html/xss"
