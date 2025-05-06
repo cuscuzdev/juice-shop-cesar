@@ -1,3 +1,12 @@
+# DevSecOps - TechLead 2024.2 - Grupo 01
+Anderson Santos (asas@cesar.school)
+Amarildo Lucena (ajfl@cesar.school)
+Júlio Moraes (jvmm@cesar.school)
+Rafael Winter (rwt@cesar.school)
+
+Proposta de Implementação de DevSecOps : https://drive.google.com/file/d/1eQvYg_5muXr8HgvQCmdJrWnQtiIe-N-V/view?usp=sharing
+
+
 # GitHub Actions: Segurança e Qualidade de Código
 
 Este projeto utiliza uma série de workflows do GitHub Actions voltados à segurança e qualidade. As ferramentas foram escolhidas com base em uso real no mercado, facilidade de integração e foco em problemas comuns que costumam aparecer em aplicações Node.js com front-end em JavaScript/HTML.
