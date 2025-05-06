@@ -1,5 +1,10 @@
 name: gitleaks
 on: [pull_request]
+
+permissions:
+  contents: read # Permissão para ler o conteúdo do repositório
+  pull-requests: write # Permissão para escrever comentários no PR
+
 jobs:
   scan:
     name: gitleaks
