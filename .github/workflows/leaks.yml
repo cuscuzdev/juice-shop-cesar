@@ -1,27 +1,14 @@
-name: Gitleaks Scan
-
-on: [pull_request]
-
+name: gitleaks
+on: [pull_request, push, workflow_dispatch]
 jobs:
-  scan-secrets:
-    name: Scan for Secrets with gitleaks
+  scan:
+    name: gitleaks
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget jq
-
-      - name: Download and install gitleaks
-        run: |
-          wget https://github.com/gitleaks/gitleaks/releases/download/v8.25.1/gitleaks-linux-amd64-v8.25.1.tar.gz
-          tar -xvzf gitleaks-linux-amd64-v8.25.1.tar.gz
-          sudo mv gitleaks /usr/local/bin/
-
-      - name: Run gitleaks scan
-        run: |
-          gitleaks detect --source=. --report=gitleaks-report.jso
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
