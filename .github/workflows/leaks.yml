@@ -11,11 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install gitleaks
+      - name: Install gitleaks via Homebrew
         run: |
-          wget https://github.com/gitleaks/gitleaks/releases/download/v8.8.0/gitleaks-linux-amd64-v8.8.0.tar.gz
-          tar -xvzf gitleaks-linux-amd64-v8.8.0.tar.gz
-          sudo mv gitleaks /usr/local/bin
+          sudo apt-get update
+          sudo apt-get install -y linuxbrew-wrapper
+          brew install gitleaks
 
       - name: Run gitleaks scan
         run: |
