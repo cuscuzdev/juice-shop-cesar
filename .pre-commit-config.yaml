@@ -1,0 +1,34 @@
+fail_fast: false
+repos:
+
+  # YAML lint
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.26
+    hooks:
+      - id: actionlint
+
+  # Secrets scan - Gitleaks via Docker (pode trocar por detect-secrets se quiser)
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: Gitleaks Scan
+        entry: docker run --rm -v $(pwd):/code zricethezav/gitleaks:latest detect --source=/code
+        language: system
+        files: .*
+
+  # SAST com Semgrep
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.66.0
+    hooks:
+      - id: semgrep
+        args: ["--config=p/owasp-top-ten"]
+
+  # (Opcional) Scan de dependências Node.js — não tem plugin oficial
+  # Mas você pode criar um hook local que roda `npm audit`
+  - repo: local
+    hooks:
+      - id: npm-audit
+        name: NPM Audit
+        entry: bash ./scripts/npm-audit.sh
+        language: script
+        files: ^package(-lock)?\.json$
