@@ -13,8 +13,8 @@ jobs:
 
       - name: Install gitleaks
         run: |
-          wget https://github.com/gitleaks/gitleaks/releases/download/v8.7.0/gitleaks-linux-amd64-v8.7.0.tar.gz
-          tar -xvzf gitleaks-linux-amd64-v8.7.0.tar.gz
+          wget https://github.com/gitleaks/gitleaks/releases/download/v8.8.0/gitleaks-linux-amd64-v8.8.0.tar.gz
+          tar -xvzf gitleaks-linux-amd64-v8.8.0.tar.gz
           sudo mv gitleaks /usr/local/bin
 
       - name: Run gitleaks scan
