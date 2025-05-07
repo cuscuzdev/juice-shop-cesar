@@ -9,7 +9,7 @@ Proposta de Implementação de DevSecOps : https://drive.google.com/file/d/1eQvY
 
 # GitHub Actions: Segurança e Qualidade de Código
 
-Este projeto utiliza uma série de workflows do GitHub Actions voltados à segurança e qualidade. As ferramentas foram escolhidas com base em uso real no mercado, facilidade de integração e foco em problemas comuns que costumam aparecer em aplicações Node.js com front-end em JavaScript/HTML.
+Este projeto utiliza uma série de workflows do GitHub Actions voltados à segurança e qualidade. As ferramentas foram escolhidas com base em uso real no mercado, facilidade de integração e foco em problemas comuns que costumam aparecer em aplicações Node.js com front-end em JavaScript/HTML. A estrutura integra ferramentas de qualidade e observabilidade, como: SonarQube para análise estática de código, Archeery para verificação de arquitetura e boas práticas, e Metrics Server para coleta e exposição de métricas de desempenho.
 
 ## Análise Estática com Semgrep
 
